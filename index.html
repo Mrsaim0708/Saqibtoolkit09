@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,maximum-scale=1.0,user-scalable=no" />
+  <title>My Creative Toolkit</title>
+  <link href="https://fonts.googleapis.com/css2?family=Audiowide&family=Nova+Square&family=Kanit&family=Baumans&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      margin: 0; padding: 0;
+      font-family: 'Kanit', sans-serif;
+      background: linear-gradient(135deg, #050510, #192419, #2d382d);
+      background-size: 400% 400%;
+      animation: bgFlow 15s ease infinite;
+      color: white;
+      overflow-x: hidden;
+      text-align: center;
+      min-height: 100vh;
+    }
+    @keyframes bgFlow { 
+      0% { background-position: 0% 50%; } 
+      50% { background-position: 100% 50%; } 
+      100% { background-position: 0% 50%; } 
+    }
+    
+    .wave-bg { 
+      position: fixed; width: 100%; height: 100%; 
+      top: 0; left: 0; overflow: hidden; z-index: -1; 
+    }
+    .wave { 
+      position: absolute; width: 200%; height: 200%; 
+      background: radial-gradient(circle at 50% 50%, #00d4ff20, transparent 70%); 
+      animation: waveMove 10s ease-in-out infinite alternate; 
+      filter: blur(60px); 
+    }
+    @keyframes waveMove { 
+      0% { transform: translate(-20%, -10%) scale(1); } 
+      100% { transform: translate(10%, 10%) scale(1.2); } 
+    }
+
+    .container { max-width: 960px; margin: 0 auto; padding: 20px; position: relative; z-index: 1; }
+    
+    .banner {
+      background: linear-gradient(90deg, #00d4ff30, #0066ff15, #00d4ff30);
+      padding: 12px 20px;
+      font-family: 'Nova Square', cursive;
+      color: #00d4ff;
+      text-shadow: 0 0 10px #00d4ff50, 0 0 20px #00d4ff30;
+      margin-bottom: 20px;
+      border-radius: 10px;
+      border: 1px solid #00d4ff40;
+      box-shadow: 0 0 20px #00d4ff15;
+    }
+    
+    .title { 
+      font-family: 'Audiowide', cursive; 
+      font-size: 2.5rem; 
+      font-weight: 900;
+      letter-spacing: 2px;
+      color: #00d4ff; 
+      margin-bottom: 10px; 
+      -webkit-text-stroke: 2px #00d4ff;
+    }
+    .subtitle { 
+      font-family: 'Nova Square', cursive; 
+      font-weight: 700;
+      letter-spacing: 1px;
+      color: #fff; 
+      margin-bottom: 30px;
+      opacity: 0.9;
+      -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+    }
+    
+    .search-container {
+      max-width: 400px;
+      margin: 0 auto 25px;
+      position: relative;
+    }
+    .search-container input {
+      width: 100%;
+      padding: 12px 20px 12px 45px;
+      background: rgba(0, 0, 0, 0.4);
+      border: 2px solid #00d4ff40;
+      border-radius: 25px;
+      color: white;
+      font-family: 'Kanit', sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+      transition: all 0.3s ease;
+      box-shadow: 0 0 15px #00d4ff10;
+    }
+    .search-container input:focus {
+      border-color: #00d4ff;
+      box-shadow: 0 0 25px #00d4ff40;
+    }
+    .search-container input::placeholder {
+      color: rgba(255,255,255,0.5);
+    }
+    .search-icon {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #00d4ff;
+      filter: drop-shadow(0 0 5px #00d4ff);
+    }
+    
+    .stats-bar {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+      flex-wrap: wrap;
+    }
+    .stat-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 18px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid #00d4ff40;
+      border-radius: 20px;
+      font-size: 0.85rem;
+      box-shadow: 0 0 15px #00d4ff10;
+    }
+    .stat-item.live {
+      background: #00d4ff15;
+      border-color: #00d4ff60;
+      box-shadow: 0 0 20px #00d4ff20;
+    }
+    .stat-item i {
+      color: #00d4ff;
+      filter: drop-shadow(0 0 5px #00d4ff);
+    }
+    
+    .tool-grid { 
+      display: grid; 
+      grid-template-columns: repeat(3, minmax(0, 1fr)); 
+      gap: 16px; 
+      justify-items: center; 
+      margin-bottom: 40px; 
+    }
+    @media (max-width: 768px) {
+      .tool-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    }
+    @media (max-width: 480px) {
+      .tool-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+      .tool-box { width: 100%; min-width: 0; }
+    }
+    
+    .tool-box { 
+      width: 100%;
+      padding: 16px; 
+      background: rgba(0, 0, 0, 0.35); backdrop-filter: blur(10px);
+      
+      
+      
+      
+      border: 3px solid #00d4ff80; 
+      border-radius: 12px; 
+      outline: 2px solid #00d4ff30;
+      outline-offset: 2px;
+      transition: all 0.3s ease; 
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+      box-shadow: 0 0 20px #00d4ff25, inset 0 0 15px #00d4ff10;
+    }
+    .tool-box:hover { 
+      transform: translateY(-5px);
+      
+      
+      
+      
+      box-shadow: 0 0 35px #00d4ff50, 0 0 60px #00d4ff20, 0 15px 40px rgba(0,0,0,0.4);
+      border-color: #00d4ff;
+    }
+    @keyframes shake {
+      0%, 100% { transform: translateX(0); }
+      25% { transform: translateX(-3px); }
+      75% { transform: translateX(3px); }
+    }
+    .tool-icon { 
+      width: 48px; 
+      height: 48px; 
+      margin: 0 auto 10px;
+      display: block;
+      object-fit: contain;
+      filter: drop-shadow(0 0 8px #00d4ff50);
+    }
+    .tool-name { 
+      font-size: 0.85rem; 
+      color: white;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      text-shadow: 1px 1px 0 rgba(0,0,0,0.5);
+    }
+    .tool-category {
+      font-size: 0.7rem;
+      color: #00d4ff;
+      opacity: 0.8;
+      margin-top: 4px;
+      text-shadow: 0 0 5px #00d4ff30;
+    }
+
+    .footer {
+      margin-top: 40px;
+      padding-top: 20px;
+      border-top: 1px solid #00d4ff20;
+    }
+    .channel-btn {
+      background: linear-gradient(135deg, #00d4ff, #0066ff);
+      color: #000;
+      padding: 14px 35px;
+      text-decoration: none;
+      border-radius: 25px;
+      font-weight: bold;
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 25px #00d4ff50, 0 0 40px #00d4ff20;
+    }
+    .channel-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 35px #00d4ff60, 0 0 50px #00d4ff30;
+    }
+    .copyright {
+      margin-top: 25px;
+      color: #00d4ff;
+      opacity: 0.7;
+      font-size: 0.9rem;
+      text-shadow: 0 0 10px #00d4ff30;
+    }
+
+    .comment-section {
+      margin-top: 50px;
+      padding: 25px;
+      background: rgba(0, 0, 0, 0.35);
+      backdrop-filter: blur(10px);
+      border: 2px solid #00d4ff40;
+      border-radius: 20px;
+      box-shadow: 0 0 20px #00d4ff15;
+    }
+    .comment-section h3 {
+      color: #00d4ff;
+      font-family: 'Nova Square', cursive;
+      margin-bottom: 20px;
+      text-shadow: 0 0 10px #00d4ff40;
+    }
+    .comment-section h3 i {
+      filter: drop-shadow(0 0 5px #00d4ff);
+    }
+    .comment-section input,
+    .comment-section textarea {
+      width: 100%;
+      padding: 12px 15px;
+      margin-bottom: 12px;
+      border: 1px solid #00d4ff40;
+      background: rgba(0, 0, 0, 0.3);
+      color: white;
+      border-radius: 10px;
+      font-family: 'Kanit', sans-serif;
+      outline: none;
+      transition: all 0.3s ease;
+    }
+    .comment-section input:focus,
+    .comment-section textarea:focus {
+      border-color: #00d4ff;
+      box-shadow: 0 0 15px #00d4ff30;
+    }
+    .comment-section textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+    .comment-section button {
+      padding: 12px 30px;
+      background: linear-gradient(135deg, #00d4ff, #0066ff);
+      color: #000;
+      border: none;
+      border-radius: 25px;
+      cursor: pointer;
+      font-weight: bold;
+      font-family: 'Kanit', sans-serif;
+      transition: all 0.3s ease;
+      box-shadow: 0 5px 20px #00d4ff40;
+    }
+    .comment-section button:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 30px #00d4ff50;
+    }
+
+    
+
+    /* Animations - Always Active */
+    @keyframes fadeInUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes slideInLeft {
+      from { opacity: 0; transform: translateX(-40px); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+    @keyframes zoomIn {
+      from { opacity: 0; transform: scale(0.6); }
+      to { opacity: 1; transform: scale(1); }
+    }
+    @keyframes pulse {
+      0%, 100% { box-shadow: 0 0 20px #00d4ff25; }
+      50% { box-shadow: 0 0 35px #00d4ff45; }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-5px); }
+    }
+    @keyframes glow {
+      0%, 100% { filter: drop-shadow(0 0 5px #00d4ff40); }
+      50% { filter: drop-shadow(0 0 15px #00d4ff70); }
+    }
+    @keyframes titleGlow {
+      0%, 100% { text-shadow: 0 0 10px #00d4ff40, 0 0 20px #00d4ff20; }
+      50% { text-shadow: 0 0 20px #00d4ff60, 0 0 40px #00d4ff40; }
+    }
+    
+    .title {
+      animation: titleGlow 3s ease-in-out infinite;
+    }
+    .subtitle {
+      animation: fadeInUp 0.8s ease forwards;
+    }
+    .search-container {
+      animation: fadeInUp 0.6s ease forwards;
+      animation-delay: 0.2s;
+      opacity: 0;
+    }
+    .stats-bar {
+      animation: fadeInUp 0.6s ease forwards;
+      animation-delay: 0.3s;
+      opacity: 0;
+    }
+    .tool-icon {
+      animation: glow 2s ease-in-out infinite;
+    }
+    .tool-box { 
+      animation: fadeInUp 0.6s ease forwards;
+      opacity: 0;
+    }
+    .tool-box:hover {
+      animation: pulse 1.5s ease-in-out infinite;
+    }
+    .tool-box:nth-child(1) { animation-delay: 0.1s; }
+    .tool-box:nth-child(2) { animation-delay: 0.15s; }
+    .tool-box:nth-child(3) { animation-delay: 0.2s; }
+    .tool-box:nth-child(4) { animation-delay: 0.25s; }
+    .tool-box:nth-child(5) { animation-delay: 0.3s; }
+    .tool-box:nth-child(6) { animation-delay: 0.35s; }
+    .tool-box:nth-child(7) { animation-delay: 0.4s; }
+    .tool-box:nth-child(8) { animation-delay: 0.45s; }
+    .tool-box:nth-child(9) { animation-delay: 0.5s; }
+    .tool-box:nth-child(10) { animation-delay: 0.55s; }
+    .tool-box:nth-child(11) { animation-delay: 0.6s; }
+    .tool-box:nth-child(12) { animation-delay: 0.65s; }
+    
+    .channel-btn {
+      animation: float 3s ease-in-out infinite;
+    }
+    .banner {
+      animation: fadeInUp 0.5s ease forwards, pulse 3s ease-in-out infinite;
+    }
+  </style>
+</head>
+<body>
+  <div class="wave-bg">
+    <div class="wave"></div>
+  </div>
+
+  
+
+  <div class="container">
+    <div class="banner">🚀 The Ultimate Toolkit Hub</div>
+    
+    <h1 class="title">My Creative Toolkit</h1>
+    <p class="subtitle">A collection of my favorite tools and resources</p>
+    
+    <div class="search-container">
+      <i class="fas fa-search search-icon"></i>
+      <input type="text" id="searchInput" placeholder="Search tools..." onkeyup="filterTools()" />
+    </div>
+    
+    <div class="stats-bar">
+      <div class="stat-item live">
+        <i class="fas fa-bolt"></i>
+        <span>Live: 5</span>
+      </div>
+      <div class="stat-item">
+        <i class="fas fa-eye"></i>
+        <span>Views: 1,250</span>
+      </div>
+      <div class="stat-item">
+        <i class="fas fa-wrench"></i>
+        <span>Tools: 4</span>
+      </div>
+    </div>
+    
+    <div class="tool-grid" id="toolGrid"></div>
+    
+    <div class="footer">
+      <a href="https://whatsapp.com/channel/YOUR_CHANNEL" target="_blank" class="channel-btn">
+        <i class="fab fa-whatsapp"></i>
+        Join WhatsApp Channel
+      </a>
+      <div class="copyright">© Developed with ❤️ by My Creative Toolkit</div>
+    </div>
+    
+    <div class="comment-section">
+      <h3><i class="fas fa-comment-dots"></i> Leave a Comment</h3>
+      <input type="email" id="commentEmail" placeholder="Your Email (e.g. example@gmail.com)" />
+      <textarea id="commentMessage" placeholder="Write your message..."></textarea>
+      <button onclick="submitComment()">
+        <i class="fas fa-paper-plane"></i> Submit Message
+      </button>
+    </div>
+  </div>
+
+  <script>
+    // Tools Data
+    const tools = [
+        { name: "ChatGPT", url: "https://chat.openai.com", icon: "https://upload.wikimedia.org/wikipedia/commons/0/04/ChatGPT_logo.svg" },
+        { name: "TIKTOK DownloadER", url: "https://usman-web.free.nf//view.php?file=index.html&user=user_237432b045cb69bf", icon: "https://i.ibb.co/QvdrwCx1/912f8a1e94a12ab834e911f126aef334.png" },
+        { name: "About Me", url: "https://mr-saqib-portfolio01-nfblfih3f-mrsaqib001s-projects.vercel.app/", icon: "https://i.ibb.co/QvdrwCx1/912f8a1e94a12ab834e911f126aef334.png" },
+        { name: "SIM DATABASE ", url: "https://mrsaim0708.github.io/Hashmidatabase007/", icon: "https://i.ibb.co/QvdrwCx1/912f8a1e94a12ab834e911f126aef334.png" }
+    ];
+    
+    // Render Tools
+    function renderTools(toolsToRender) {
+      const grid = document.getElementById('toolGrid');
+      grid.innerHTML = '';
+      toolsToRender.forEach((tool, index) => {
+        const div = document.createElement('a');
+        div.className = 'tool-box';
+        div.href = tool.url;
+        div.target = '_blank';
+        div.style.animationDelay = `${index * 0.05}s`;
+        div.innerHTML = `
+          <img src="${tool.icon}" class="tool-icon" onerror="this.src='https://ui-avatars.com/api/?name=${encodeURIComponent(tool.name)}&background=0d1117&color=00d4ff&size=128'" />
+          <div class="tool-name">${tool.name}</div>
+        `;
+        grid.appendChild(div);
+      });
+    }
+    
+    // Filter Tools
+    function filterTools() {
+      const query = document.getElementById('searchInput').value.toLowerCase();
+      const filtered = tools.filter(tool => 
+        tool.name.toLowerCase().includes(query)
+      );
+      renderTools(filtered);
+    }
+    
+    // Submit Comment (placeholder)
+    function submitComment() {
+      const email = document.getElementById('commentEmail').value;
+      const message = document.getElementById('commentMessage').value;
+      if(email && message) {
+        alert('Thank you for your message! We will get back to you soon.');
+        document.getElementById('commentEmail').value = '';
+        document.getElementById('commentMessage').value = '';
+      } else {
+        alert('Please fill in all fields.');
+      }
+    }
+    
+    
+    // Initialize
+    renderTools(tools);
+  </script>
+</body>
+</html>
